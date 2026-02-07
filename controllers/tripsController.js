@@ -2,7 +2,7 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
 
-const getAlltrips = async (req, res, next) => {
+const getAllTrips = async (req, res, next) => {
   try {
     const db = mongodb.getDb().db('disney_planner');
     const result = await db.collection('trips').find().toArray();
@@ -13,7 +13,7 @@ const getAlltrips = async (req, res, next) => {
 
 };
 
-const getTripsById = async (req, res) => {
+const getTripById = async (req, res) => {
 //   try {
 //     const db = require('../db/connect').getDb().db('Test');
 //     const id = req.params.id; // gets the value from the URL
@@ -80,6 +80,6 @@ const deleteTrip = async (req, res) => {
 }
 
 
-module.exports = { getAlltrips, getTripsById, 
+module.exports = { getAllTrips, getTripById, 
     newTrip, editTrip, deleteTrip
  };
