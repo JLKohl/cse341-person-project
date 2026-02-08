@@ -26,8 +26,9 @@ const getAttractionById = async (req, res) => {
 };
 
 const newAttraction = async (req, res) => {
-
-  const attactionData = {
+  console.log(req.body);
+  
+  const attractionData = {
 
     name: req.body.name,
     park: req.body.park,
@@ -35,11 +36,11 @@ const newAttraction = async (req, res) => {
     type: req.body.type
   }
 
-  const response = await mongodb.getDb().db().collection('attractions').insertOne(attactionData);
+  const response = await mongodb.getDb().db().collection('attractions').insertOne(attractionData);
   if (response.acknowledged) {
     res.status(201).json(response);
   } else {
-    res.status(500).json(response.error || 'Some error occurred while creating the contact.');
+    res.status(500).json(response.error || 'Some error occurred while creating the attraction.');
   }
 
 }

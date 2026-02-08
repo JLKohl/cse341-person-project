@@ -34,11 +34,11 @@ const newTrip = async (req, res) => {
     endDate: req.body.endDate,
     parkList: req.body.parkList, // array of parks
     hotel: req.body.hotel,
-    budget: req.body.budget,
+    budget: req.body.budget, //int
     notes: req.body.notes
   }
 
-  const response = await mongodb.getDb().db().collection('disney_planner').insertOne(tripData);
+  const response = await mongodb.getDb().db().collection('trips').insertOne(tripData);
   if (response.acknowledged) {
     res.status(201).json(response);
   } else {

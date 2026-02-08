@@ -13,13 +13,12 @@ const tripsRoute = require('./routes/tripsRoute');
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Disney Travel Planner API running!');
-  });
-
 app.use(cors()); 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('Disney Travel Planner API running!');
+  });
 
 app.use('/attractions', attractionsRoute);
 app.use('/trips', tripsRoute);
