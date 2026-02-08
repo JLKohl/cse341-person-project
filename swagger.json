@@ -8,7 +8,7 @@
   "host": "cse341-personal-project-m6ip.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
