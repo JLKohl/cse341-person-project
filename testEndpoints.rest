@@ -54,13 +54,13 @@ Accept: application/json
 ###
 
 #edit trip
-PUT http://localhost:8080/trips/
+PUT http://localhost:8080/trips/6987c1dae7337a2f7ebf35b0
 Content-Type: application/json
 Accept: application/json
 
 {
 
-    "budget": 5000
+    "budget": 10000
     
 }
 

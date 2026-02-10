@@ -14,15 +14,15 @@ const getAllTrips = async (req, res, next) => {
 };
 
 const getTripById = async (req, res) => {
-//   try {
-//     const db = require('../db/connect').getDb().db('Test');
-//     const id = req.params.id; // gets the value from the URL
-//     const contact = await db.collection('Contacts').findOne({ _id: new ObjectId(id) });
-//     if (!contact) return res.status(404).json({ error: 'Contact not found' });
-//     res.status(200).json(contact);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Something went wrong' });
-//   }
+  try {
+    const db = require('../db/connect').getDb().db('disney_planner');
+    const id = req.params.id; // gets the value from the URL
+    const trip = await db.collection('trips').findOne({ _id: new ObjectId(id) });
+    if (!trip) return res.status(404).json({ error: 'trip not found' });
+    res.status(200).json(trip);
+  } catch (err) {
+    res.status(500).json({ error: 'Something went wrong' });
+  }
 };
 
 const newTrip = async (req, res) => {
@@ -42,41 +42,41 @@ const newTrip = async (req, res) => {
   if (response.acknowledged) {
     res.status(201).json(response);
   } else {
-    res.status(500).json(response.error || 'Some error occurred while creating the contact.');
+    res.status(500).json(response.error || 'Some error occurred while creating the trip.');
   }
 
 }
 
 const editTrip = async (req, res) => {
 
-//   console.log('EDIT CONTACT HIT');
-//   console.log('ID:', req.params.id);
-//   console.log('BODY:', req.body);
+  console.log('EDIT trip HIT');
+  console.log('ID:', req.params.id);
+  console.log('BODY:', req.body);
 
-//   const contactId = req.params.id;
-//   const updates = req.body;
+  const tripId = req.params.id;
+  const updates = req.body;
 
-//   const response = await mongodb.getDb().db().collection('Contacts').updateOne({ _id: new ObjectId(contactId) },
-//   { $set: updates });
+  const response = await mongodb.getDb().db().collection('trips').updateOne({ _id: new ObjectId(tripId) },
+  { $set: updates });
 
-//   if (response.modifiedCount > 0) {
-//     res.status(204).send();
-//   } else {
-//     res.status(500).json(response.error || 'Some error occurred while updating the contact.');
-//   }
+  if (response.matchedCount === 0) {
+    res.status(404).json({ message: 'Trip not found' });
+  } else {
+    res.status(204).send();
+  }
 }
 
 const deleteTrip = async (req, res) => {
   
-//   const contactId = req.params.id;
+  const tripId = req.params.id;
 
-//   const response = await mongodb.getDb().db().collection('Contacts').deleteOne({ _id: new ObjectId(contactId) });
+  const response = await mongodb.getDb().db().collection('trips').deleteOne({ _id: new ObjectId(tripId) });
 
-//   if (response.acknowledged) {
-//     res.status(200).json(response);
-//   } else {
-//     res.status(500).json(response.error || 'Some error occurred while creating the contact.');
-//   }
+  if (response.acknowledged) {
+    res.status(200).json(response);
+  } else {
+    res.status(500).json(response.error || 'Some error occurred while creating the trip.');
+  }
 }
 
 
