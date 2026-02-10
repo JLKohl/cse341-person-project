@@ -60,7 +60,7 @@ Accept: application/json
 
 {
 
-    "budget": 10000
+    "budget": 5000
     
 }
 

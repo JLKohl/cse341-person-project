@@ -49,20 +49,29 @@ const newTrip = async (req, res) => {
 
 const editTrip = async (req, res) => {
 
-  console.log('EDIT trip HIT');
-  console.log('ID:', req.params.id);
-  console.log('BODY:', req.body);
+  try {
+    console.log('EDIT trip HIT');
+    console.log('ID:', req.params.id);
+    console.log('BODY:', req.body);
 
-  const tripId = req.params.id;
-  const updates = req.body;
+    const tripId = req.params.id;
+    const updates = req.body;
 
-  const response = await mongodb.getDb().db().collection('trips').updateOne({ _id: new ObjectId(tripId) },
-  { $set: updates });
+    const response = await mongodb.getDb()
+      .db()
+      .collection('trips')
+      .updateOne({ _id: new ObjectId(tripId) }, { $set: updates });
 
-  if (response.matchedCount === 0) {
-    res.status(404).json({ message: 'Trip not found' });
-  } else {
-    res.status(204).send();
+    if (response.matchedCount === 0) {
+      return res.status(404).json({ message: 'Trip not found' });
+    }
+
+    // PUT routes for your class want 204
+    return res.status(204).send();
+
+  } catch (err) {
+    console.error('EDIT TRIP ERROR:', err);  // <-- log actual error
+    return res.status(500).json({ error: err.message });
   }
 }
 
