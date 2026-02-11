@@ -1,5 +1,7 @@
 const mongodb = require('../db/connect');
+const validate = require('../validations/tripsValidation');
 const ObjectId = require('mongodb').ObjectId;
+
 
 
 const getAllTrips = async (req, res, next) => {
@@ -26,6 +28,12 @@ const getTripById = async (req, res) => {
 };
 
 const newTrip = async (req, res) => {
+
+  const errors = validate.validateTrip(req.body);
+  if (errors.length > 0) {
+    return res.status(400).json({ errors });
+  }
+
 
   const tripData = {
 
