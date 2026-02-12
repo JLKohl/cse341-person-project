@@ -1,115 +1,33 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.3",
   "info": {
     "title": "Disney Travel Planner API",
     "description": "API for planning Disney trips",
     "version": "1.0.0"
   },
-  "host": "cse341-personal-project-m6ip.onrender.com",
-  "basePath": "/",
-  "schemes": [
-    "https"
+  "servers": [
+    {
+      "url": "https://cse341-personal-project-m6ip.onrender.com",
+      "description": "Production server"
+    },
+    {
+      "url": "http://localhost:8080",
+      "description": "Local server"
+    }
   ],
   "paths": {
-    "/": {
+    "/trips": {
       "get": {
-        "description": "",
+        "summary": "Get all trips",
+        "tags": ["Trips"],
         "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/attractions/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "List of trips" },
+          "500": { "description": "Server error" }
         }
       },
       "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "park": {
-                  "example": "any"
-                },
-                "waitTime": {
-                  "example": "any"
-                },
-                "type": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/attractions/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update an attraction",
-        "description": "Updates one or more fields of an attraction by ID",
-        "tags": ["Attractions"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "MongoDB ObjectId of the attraction",
-            "example": "698beb3f25f6b37b00ee719f"
-          }
-        ],
+        "summary": "Create a new trip",
+        "tags": ["Trips"],
         "requestBody": {
           "required": true,
           "content": {
@@ -117,137 +35,59 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string", "example": "Slinky Dog Dash" },
-                  "park": { "type": "string", "example": "Hollywood Studios" },
-                  "waitTime": { "type": "number", "example": 50 },
-                  "rideType": { "type": "string", "example": "Family Ride" }
+                  "name": { "type": "string", "example": "Super Awesome Trip" },
+                  "startDate": { "type": "string", "example": "11/21/2027" },
+                  "endDate": { "type": "string", "example": "11/25/2027" },
+                  "parkList": { 
+                    "type": "array", 
+                    "items": { "type": "string" }, 
+                    "example": ["Magic Kingdom", "Hollywood Studios"]
+                  },
+                  "hotel": { "type": "string", "example": "Animal Kingdom Lodge" },
+                  "budget": { "type": "number", "example": 5000 },
+                  "notes": { "type": "string", "example": "Book FastPasses in advance" }
                 },
-                "required": ["name", "park", "waitTime", "rideType"]
+                "required": ["name","startDate","endDate","parkList"]
               }
             }
           }
         },
         "responses": {
-          "204": { "description": "Attraction updated successfully (No Content)" },
+          "201": { "description": "Trip created" },
           "400": { "description": "Bad Request (validation failed)" },
-          "404": { "description": "Attraction not found" },
           "500": { "description": "Server error" }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/trips/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "startDate": {
-                  "example": "any"
-                },
-                "endDate": {
-                  "example": "any"
-                },
-                "parkList": {
-                  "example": "any"
-                },
-                "hotel": {
-                  "example": "any"
-                },
-                "budget": {
-                  "example": "any"
-                },
-                "notes": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
         }
       }
     },
     "/trips/{id}": {
       "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-"put": {
-        "summary": "Update a trip",
-        "description": "Updates one or more fields of a trip by ID",
+        "summary": "Get a trip by ID",
         "tags": ["Trips"],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
+            "schema": { "type": "string" },
+            "description": "MongoDB ObjectId of the trip",
+            "example": "698beb3f25f6b37b00ee7200"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Trip found" },
+          "404": { "description": "Trip not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "summary": "Update a trip",
+        "tags": ["Trips"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
             "description": "MongoDB ObjectId of the trip",
             "example": "698beb3f25f6b37b00ee7200"
           }
@@ -262,9 +102,9 @@
                   "name": { "type": "string", "example": "Super Awesome Trip" },
                   "startDate": { "type": "string", "example": "11/21/2027" },
                   "endDate": { "type": "string", "example": "11/25/2027" },
-                  "parkList": {
-                    "type": "array",
-                    "items": { "type": "string" },
+                  "parkList": { 
+                    "type": "array", 
+                    "items": { "type": "string" }, 
                     "example": ["Magic Kingdom", "Hollywood Studios"]
                   },
                   "hotel": { "type": "string", "example": "Animal Kingdom Lodge" },
@@ -284,22 +124,135 @@
         }
       },
       "delete": {
-        "description": "",
+        "summary": "Delete a trip",
+        "tags": ["Trips"],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": { "type": "string" },
+            "description": "MongoDB ObjectId of the trip",
+            "example": "698beb3f25f6b37b00ee7200"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "200": { "description": "Trip deleted" },
+          "404": { "description": "Trip not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/attractions": {
+      "get": {
+        "summary": "Get all attractions",
+        "tags": ["Attractions"],
+        "responses": {
+          "200": { "description": "List of attractions" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "summary": "Create a new attraction",
+        "tags": ["Attractions"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Slinky Dog Dash" },
+                  "park": { "type": "string", "example": "Hollywood Studios" },
+                  "waitTime": { "type": "number", "example": 50 },
+                  "rideType": { "type": "string", "example": "Family Ride" }
+                },
+                "required": ["name","park","waitTime","rideType"]
+              }
+            }
           }
+        },
+        "responses": {
+          "201": { "description": "Attraction created" },
+          "400": { "description": "Bad Request (validation failed)" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/attractions/{id}": {
+      "get": {
+        "summary": "Get an attraction by ID",
+        "tags": ["Attractions"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "MongoDB ObjectId of the attraction",
+            "example": "698beb3f25f6b37b00ee719f"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Attraction found" },
+          "404": { "description": "Attraction not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "summary": "Update an attraction",
+        "tags": ["Attractions"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "MongoDB ObjectId of the attraction",
+            "example": "698beb3f25f6b37b00ee719f"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Slinky Dog Dash" },
+                  "park": { "type": "string", "example": "Hollywood Studios" },
+                  "waitTime": { "type": "number", "example": 50 },
+                  "rideType": { "type": "string", "example": "Family Ride" }
+                },
+                "required": ["name","park","waitTime","rideType"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Attraction updated successfully (No Content)" },
+          "400": { "description": "Bad Request (validation failed)" },
+          "404": { "description": "Attraction not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "delete": {
+        "summary": "Delete an attraction",
+        "tags": ["Attractions"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "MongoDB ObjectId of the attraction",
+            "example": "698beb3f25f6b37b00ee719f"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Attraction deleted" },
+          "404": { "description": "Attraction not found" },
+          "500": { "description": "Server error" }
         }
       }
     }
