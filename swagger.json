@@ -102,7 +102,18 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
+          },
+          {
+            "name": "attraction",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "name": "Slinky Dog Dash",
+              "park": "Hollywood Studios",
+              "waitTime": 50,
+              "type": "Family Ride"
+            }
+          }     
         ],
         "responses": {
           "204": {
@@ -229,6 +240,20 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "trip",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "name": "Super Awesome Trip",
+              "startDate": "11/21/2027",
+              "endDate": "11/25/2027",
+              "parkList": ["Magic Kingdom", "Hollywood Studios"],
+              "hotel": "Animal Kingdom Lodge",
+              "budget": 5000,
+              "notes": "Book FastPasses in advance"
+            }
           }
         ],
         "responses": {

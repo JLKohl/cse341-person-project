@@ -50,11 +50,26 @@ const newAttraction = async (req, res) => {
 
 }
 
+// #swagger.tags = ['Attractions']
+// #swagger.description = 'Edit an existing attraction by ID'
+// #swagger.parameters['attraction'] = {
+//   in: 'body',
+//   description: 'Attraction object with updated values',
+//   required: true,
+//   schema: {
+//     name: "Slinky Dog Dash",
+//     park: "Hollywood Studios",
+//     waitTime: 50,
+//     type: "Family Ride"
+//   }
+// }
+
+
 const editAttraction = async (req, res) => {
   try {
 
     const attractionId = req.params.id;
-
+    
     const errors = validate.validateAttraction(req.body);
     if (errors.length > 0) {
       return res.status(400).json({ errors });
