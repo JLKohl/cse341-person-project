@@ -13,7 +13,7 @@ function validateAttraction(attraction) {
     errors.push('Wait time is required and must be a number');
   }
 
-  if (!attraction.type || typeof attraction.type !== 'string') {
+  if (!attraction.rideType || typeof attraction.rideType !== 'string') {
     errors.push('Type is required and must be a string');
   }
 
