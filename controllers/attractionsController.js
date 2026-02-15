@@ -50,21 +50,6 @@ const newAttraction = async (req, res) => {
 
 }
 
-// #swagger.tags = ['Attractions']
-// #swagger.description = 'Edit an existing attraction by ID'
-// #swagger.parameters['attraction'] = {
-//   in: 'body',
-//   description: 'Attraction object with updated values',
-//   required: true,
-//   schema: {
-//     name: "Slinky Dog Dash",
-//     park: "Hollywood Studios",
-//     waitTime: 50,
-//     type: "Family Ride"
-//   }
-// }
-
-
 const editAttraction = async (req, res) => {
   try {
 
@@ -102,6 +87,10 @@ const deleteAttraction = async (req, res) => {
   const attractionId = req.params.id;
 
   const response = await mongodb.getDb().db().collection('attractions').deleteOne({ _id: new ObjectId(attractionId) });
+
+  if (response.deletedCount === 0) {
+    return res.status(404).json({ message: "Attraction not found" });
+  }
 
   if (response.acknowledged) {
     res.status(200).json(response);

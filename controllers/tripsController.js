@@ -55,24 +55,6 @@ const newTrip = async (req, res) => {
 
 }
 
-// #swagger.tags = ['Trips']
-// #swagger.description = 'Edit an existing trip by ID'
-// #swagger.parameters['trip'] = {
-//   in: 'body',
-//   description: 'Trip object with updated values',
-//   required: true,
-//   schema: {
-//     name: "Super Awesome Trip",
-//     startDate: "11/21/2027",
-//     endDate: "11/25/2027",
-//     parkList: ["Magic Kingdom", "Hollywood Studios"],
-//     hotel: "Animal Kingdom Lodge",
-//     budget: 5000,
-//     notes: "Book FastPasses in advance"
-//   }
-// }
-
-
 const editTrip = async (req, res) => {
 
   try {
@@ -112,6 +94,11 @@ const deleteTrip = async (req, res) => {
 
   const response = await mongodb.getDb().db().collection('trips').deleteOne({ _id: new ObjectId(tripId) });
 
+  
+  if (response.deletedCount === 0) {
+    return res.status(404).json({ message: "tip not found" });
+  }
+  
   if (response.acknowledged) {
     res.status(200).json(response);
   } else {
