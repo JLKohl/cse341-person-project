@@ -1,57 +1,66 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
+const path = require('path');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
+
 const mongodb = require('./db/connect');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-const { ensureAuthenticated } = require('./middleware/authMiddleware');
-const session = require('express-session');
-const passport = require('passport');
+
+const homeRoute = require('./routes/home');
 const attractionsRoute = require('./routes/attractionsRoute');
 const tripsRoute = require('./routes/tripsRoute');
-const flash = require('connect-flash');
-const path = require('path');
-
+const { ensureAuthenticated } = require('./middleware/authMiddleware');
 
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.use(cors()); 
+// --- Middleware ---
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // optional if you use form submissions
+
+// Sessions & Passport
 app.use(session({
-  secret: 'someSecretString', 
+  secret: 'someSecretString',
   resave: false,
   saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Flash messages
 app.use(flash());
 app.use((req, res, next) => {
   res.locals.errorMessage = req.flash('error');
   next();
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.ejs');
-});
-
+// --- View engine & static files ---
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 
+// --- Routes ---
+app.use('/', homeRoute);
 app.use('/attractions', attractionsRoute);
 app.use('/trips', tripsRoute);
+
+// Swagger docs protected by authentication
 app.use('/api-docs',
   ensureAuthenticated,
-  swaggerUi.serve, 
-  swaggerUi.setup(swaggerDocument))
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
 
-
-mongodb.initDb((err, mongodb) => {
+// --- Start server after DB is connected ---
+mongodb.initDb((err, client) => {
   if (err) {
-    console.log(err);
+    console.error('Failed to connect to database', err);
+    process.exit(1);
   } else {
-    app.listen(port);
-    console.log(`Connected to DB and listening on ${port}`);
+    app.listen(port, () => console.log(`Server running on port ${port}`));
   }
 });
