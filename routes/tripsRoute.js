@@ -1,10 +1,13 @@
 const express = require('express');
 const {validateTrips, handleValidationErrors} = require('../middleware/validation')
 const tripsController = require('../controllers/tripsController');
+const { ensureAuthenticated } = require('./middleware/authMiddleware');
 const router = express.Router();
 
 //get route
-router.get('/', tripsController.getAllTrips);
+router.get('/',
+    ensureAuthenticated,
+    tripsController.getAllTrips);
 router.get('/:id', tripsController.getTripById);
 
 //add trip

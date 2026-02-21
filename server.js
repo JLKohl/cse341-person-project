@@ -5,6 +5,7 @@ const MongoClient = require('mongodb').MongoClient;
 const mongodb = require('./db/connect');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const { ensureAuthenticated } = require('./middleware/authMiddleware');
 
 const attractionsRoute = require('./routes/attractionsRoute');
 const tripsRoute = require('./routes/tripsRoute');
@@ -24,7 +25,10 @@ app.get('/', (req, res) => {
 
 app.use('/attractions', attractionsRoute);
 app.use('/trips', tripsRoute);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/api-docs',
+  ensureAuthenticated,
+  swaggerUi.serve, 
+  swaggerUi.setup(swaggerDocument))
 
 
 mongodb.initDb((err, mongodb) => {

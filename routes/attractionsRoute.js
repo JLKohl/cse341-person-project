@@ -1,10 +1,15 @@
 const express = require('express');
 const attractionsController = require('../controllers/attractionsController')
 const {validateAttraction, handleValidationErrors} = require('../middleware/validation')
+const { ensureAuthenticated } = require('./middleware/authMiddleware');
 const router = express.Router();
 
+
 //get routes
-router.get('/', attractionsController.getAllAttractions);
+router.get('/', 
+    ensureAuthenticated,
+    attractionsController.getAllAttractions);
+
 router.get('/:id', attractionsController.getAttractionById);
 
 //add new attraction
