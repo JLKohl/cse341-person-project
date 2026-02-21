@@ -1,17 +1,25 @@
 const express = require('express');
-
+const {validateTrips, handleValidationErrors} = require('../middleware/validation')
 const tripsController = require('../controllers/tripsController');
-
 const router = express.Router();
 
+//get route
 router.get('/', tripsController.getAllTrips);
-
 router.get('/:id', tripsController.getTripById);
 
-router.post('/', tripsController.newTrip);
+//add trip
+router.post('/',
+    validateTrips,
+    handleValidationErrors,
+    tripsController.newTrip);
 
-router.put('/:id', tripsController.editTrip);
+//edit trip
+router.put('/:id',
+    validateTrips,
+    handleValidationErrors,
+    tripsController.editTrip);
 
+//delete trip
 router.delete('/:id', tripsController.deleteTrip);
 
 module.exports = router;
