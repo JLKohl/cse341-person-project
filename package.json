@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/JLKohl/cse341-person-project#readme",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",

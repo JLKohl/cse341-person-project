@@ -6,17 +6,29 @@ const mongodb = require('./db/connect');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const { ensureAuthenticated } = require('./middleware/authMiddleware');
-
+const session = require('express-session');
+const passport = require('passport');
 const attractionsRoute = require('./routes/attractionsRoute');
 const tripsRoute = require('./routes/tripsRoute');
-
+const flash = require('connect-flash');
 
 const port = process.env.PORT || 8080;
 const app = express();
 
 app.use(cors()); 
 app.use(express.json());
-
+app.use(session({
+  secret: 'someSecretString', 
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.errorMessage = req.flash('error');
+  next();
+});
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
