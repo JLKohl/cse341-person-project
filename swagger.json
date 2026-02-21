@@ -36,18 +36,14 @@
                 "type": "object",
                 "properties": {
                   "name": { "type": "string", "example": "Super Awesome Trip" },
-                  "startDate": { "type": "string", "format": "date", "example": "11/21/2027" },
-                  "endDate": { "type": "string", "format": "date", "example": "11/25/2027" },
-                  "parkList": { 
-                    "type": "array", 
-                    "items": { "type": "string" }, 
-                    "example": ["Magic Kingdom", "Hollywood Studios"]
-                  },
+                  "startDate": { "type": "string", "format": "date", "example": "2027-11-21" },
+                  "endDate": { "type": "string", "format": "date", "example": "2027-11-25" },
+                  "parkList": { "type": "array", "items": { "type": "string" }, "example": ["Magic Kingdom", "Hollywood Studios"] },
                   "hotel": { "type": "string", "example": "Animal Kingdom Lodge" },
                   "budget": { "type": "number", "example": 5000 },
                   "notes": { "type": "string", "example": "Book FastPasses in advance" }
                 },
-                "required": ["name","startDate","endDate","parkList"]
+                "required": ["name", "startDate", "endDate", "parkList"]
               }
             }
           }
@@ -64,14 +60,7 @@
         "summary": "Get a trip by ID",
         "tags": ["Trips"],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" },
-            "description": "MongoDB ObjectId of the trip",
-            "example": "698beb3f25f6b37b00ee7200"
-          }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "MongoDB ObjectId of the trip", "example": "698beb3f25f6b37b00ee7200" }
         ],
         "responses": {
           "200": { "description": "Trip found" },
@@ -83,14 +72,7 @@
         "summary": "Update a trip",
         "tags": ["Trips"],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" },
-            "description": "MongoDB ObjectId of the trip",
-            "example": "698beb3f25f6b37b00ee7200"
-          }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "MongoDB ObjectId of the trip", "example": "698beb3f25f6b37b00ee7200" }
         ],
         "requestBody": {
           "required": true,
@@ -100,18 +82,14 @@
                 "type": "object",
                 "properties": {
                   "name": { "type": "string", "example": "Super Awesome Trip" },
-                  "startDate": { "type": "string", "format": "date", "example": "11/21/2027" },
-                  "endDate": { "type": "string", "format": "date", "example": "11/25/2027" },
-                  "parkList": { 
-                    "type": "array", 
-                    "items": { "type": "string" }, 
-                    "example": ["Magic Kingdom", "Hollywood Studios"]
-                  },
+                  "startDate": { "type": "string", "format": "date", "example": "2027-11-21" },
+                  "endDate": { "type": "string", "format": "date", "example": "2027-11-25" },
+                  "parkList": { "type": "array", "items": { "type": "string" }, "example": ["Magic Kingdom", "Hollywood Studios"] },
                   "hotel": { "type": "string", "example": "Animal Kingdom Lodge" },
                   "budget": { "type": "number", "example": 5000 },
                   "notes": { "type": "string", "example": "Book FastPasses in advance" }
                 },
-                "required": ["name","startDate","endDate","parkList"]
+                "required": ["name", "startDate", "endDate", "parkList"]
               }
             }
           }
@@ -127,14 +105,7 @@
         "summary": "Delete a trip",
         "tags": ["Trips"],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" },
-            "description": "MongoDB ObjectId of the trip",
-            "example": "698beb3f25f6b37b00ee7200"
-          }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "MongoDB ObjectId of the trip", "example": "698beb3f25f6b37b00ee7200" }
         ],
         "responses": {
           "200": { "description": "Trip deleted" },
@@ -167,7 +138,7 @@
                   "waitTime": { "type": "number", "example": 50 },
                   "rideType": { "type": "string", "example": "Family Ride" }
                 },
-                "required": ["name","park","waitTime","rideType"]
+                "required": ["name", "park", "waitTime", "rideType"]
               }
             }
           }
@@ -184,14 +155,7 @@
         "summary": "Get an attraction by ID",
         "tags": ["Attractions"],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" },
-            "description": "MongoDB ObjectId of the attraction",
-            "example": "698beb3f25f6b37b00ee719f"
-          }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "MongoDB ObjectId of the attraction", "example": "698beb3f25f6b37b00ee719f" }
         ],
         "responses": {
           "200": { "description": "Attraction found" },
@@ -203,14 +167,7 @@
         "summary": "Update an attraction",
         "tags": ["Attractions"],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" },
-            "description": "MongoDB ObjectId of the attraction",
-            "example": "698beb3f25f6b37b00ee719f"
-          }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "MongoDB ObjectId of the attraction", "example": "698beb3f25f6b37b00ee719f" }
         ],
         "requestBody": {
           "required": true,
@@ -224,7 +181,7 @@
                   "waitTime": { "type": "number", "example": 50 },
                   "rideType": { "type": "string", "example": "Family Ride" }
                 },
-                "required": ["name","park","waitTime","rideType"]
+                "required": ["name", "park", "waitTime", "rideType"]
               }
             }
           }
@@ -240,14 +197,7 @@
         "summary": "Delete an attraction",
         "tags": ["Attractions"],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" },
-            "description": "MongoDB ObjectId of the attraction",
-            "example": "698beb3f25f6b37b00ee719f"
-          }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "MongoDB ObjectId of the attraction", "example": "698beb3f25f6b37b00ee719f" }
         ],
         "responses": {
           "200": { "description": "Attraction deleted" },

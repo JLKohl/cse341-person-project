@@ -44,14 +44,14 @@ const validateTrips = [
   body('startDate')
     .notEmpty()
     .withMessage('Start date is required')
-    .isDate({ format: 'MM/DD/YYYY' })
-    .withMessage('Start date must be in MM/DD/YYYY format'),
+    .isDate()
+    .withMessage('Start date must be in YYYY-MM-DD format'),
 
   body('endDate')
     .notEmpty()
     .withMessage('End date is required')
-    .isDate({ format: 'MM/DD/YYYY' })
-    .withMessage('End date must be in MM/DD/YYYY format')
+    .isDate()
+    .withMessage('End date must be in YYYY-MM-DD format')
     .custom((value, { req }) => {
       const start = new Date(req.body.startDate);
       const end = new Date(value);
