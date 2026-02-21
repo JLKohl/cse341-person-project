@@ -27,11 +27,6 @@ const getAttractionById = async (req, res) => {
 };
 
 const newAttraction = async (req, res) => {
-
-  const errors = validate.validateAttraction(req.body);
-  if(errors.length > 0){
-    return res.status(400).json({errors});
-  }
   
   const attractionData = {
 
@@ -54,11 +49,6 @@ const editAttraction = async (req, res) => {
   try {
 
     const attractionId = req.params.id;
-    
-    const errors = validate.validateAttraction(req.body);
-    if (errors.length > 0) {
-      return res.status(400).json({ errors });
-    }
 
     const response = await mongodb
       .getDb()

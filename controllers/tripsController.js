@@ -29,12 +29,6 @@ const getTripById = async (req, res) => {
 
 const newTrip = async (req, res) => {
 
-  const errors = validate.validateTrip(req.body);
-  if (errors.length > 0) {
-    return res.status(400).json({ errors });
-  }
-
-
   const tripData = {
 
     name: req.body.name,
@@ -65,11 +59,6 @@ const editTrip = async (req, res) => {
     const tripId = req.params.id;
     const updates = req.body;
 
-    const errors = validate.validateTrip(req.body);
-    if (errors.length > 0) {
-      return res.status(400).json({ errors });
-    }
-
     const response = await mongodb.getDb()
       .db()
       .collection('trips')
@@ -79,11 +68,10 @@ const editTrip = async (req, res) => {
       return res.status(404).json({ message: 'Trip not found' });
     }
 
-    // PUT routes for your class want 204
     return res.status(204).send();
 
   } catch (err) {
-    console.error('EDIT TRIP ERROR:', err);  // <-- log actual error
+    console.error('EDIT TRIP ERROR:', err);  
     return res.status(500).json({ error: err.message });
   }
 }
