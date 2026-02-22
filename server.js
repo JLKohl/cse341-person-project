@@ -3,6 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
+require('./middleware/passport');
+const authRoute = require('./routes/auth');
 const flash = require('connect-flash');
 
 const mongodb = require('./db/connect');
@@ -45,8 +47,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // --- Routes ---
 app.use('/', homeRoute);
+app.use('/auth', authRoute);
 app.use('/attractions', attractionsRoute);
 app.use('/trips', tripsRoute);
+
 
 // Swagger docs protected by authentication
 app.use('/api-docs',
