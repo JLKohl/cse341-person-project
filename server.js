@@ -25,7 +25,7 @@ app.set('trust proxy', 1);
 // --- Middleware ---
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // optional if you use form submissions
+
 
 // Sessions & Passport
 app.use(session({
@@ -35,6 +35,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+console.log('Environment:', process.env.NODE_ENV);
 
 // Flash messages
 app.use(flash());
