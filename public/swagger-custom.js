@@ -9,9 +9,7 @@ window.addEventListener('load', function () {
         const logoutButton = document.createElement('button');
 
         logoutButton.innerText = 'Logout';
-        logoutButton.style.marginLeft = '20px';
-        logoutButton.style.padding = '6px 12px';
-        logoutButton.style.cursor = 'pointer';
+        logoutButton.classList.add('swagger-logout-btn');
 
         logoutButton.onclick = function () {
             window.location.href = '/auth/logout';

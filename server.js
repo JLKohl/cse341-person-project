@@ -61,7 +61,8 @@ app.use('/api-docs',
   ensureAuthenticated,
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
-    customJs: '/swagger-custom.js'
+    customJs: '/swagger-custom.js',
+    customCssUrl: '/swagger.css'
   })
 );
 

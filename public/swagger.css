@@ -1,0 +1,18 @@
+  /* --- Logout Button ---*/
+  
+  .swagger-logout-btn {
+    padding: 8px 14px;
+    float:right;
+    background: linear-gradient(135deg, #c9749d, #6258bf);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .swagger-logout-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(255, 182, 217, 0.4);
+  }
